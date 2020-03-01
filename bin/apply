@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+set -ex
+
+environment=$1
+
+terraform apply -var="environment=${environment}" -var-file="${environment}.tfvars"
