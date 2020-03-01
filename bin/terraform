@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+set -ex
+
+cmd=$1
+environment=$2
+component=$3
+
+cd "./components/${component}/"
+
+terraform ${cmd} -var="environment=${environment}" -var-file="vars/${environment}.tfvars"

@@ -1,7 +1,3 @@
 #!/usr/bin/env sh
 
-set -ex
-
-environment=$1
-
-terraform plan -var="environment=${environment}" -var-file="${environment}.tfvars"
+./bin/terraform plan $1 $2
