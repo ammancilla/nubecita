@@ -1,6 +1,6 @@
 variable "environment" {
   type = string
-  description = ""
+  description = "The working environment"
 }
 
 variable "region" {
