@@ -23,7 +23,7 @@ provider "aws" {
 }
 
 resource "aws_vpc" "nubecita" {
-  cidr_block = var.cidr_block
+  cidr_block = var.aws_vpc_cidr_block
 
   tags = {
     Name = var.aws_vpc_name
