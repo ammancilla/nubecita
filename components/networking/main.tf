@@ -5,9 +5,9 @@ module "networking" {
   region = var.region
 
   # VPC
-  aws_vpc_cidr_block = var.aws_vpc_cidr_block
-  aws_vpc_location = var.aws_vpc_location
-  aws_vpc_name = var.aws_vpc_name
+  aws_vpc__cidr_block = var.aws_vpc__cidr_block
+  aws_vpc__location = var.aws_vpc__location
+  aws_vpc__name = var.aws_vpc__name
 
   # Private Subnets
   availability_zones = var.availability_zones
