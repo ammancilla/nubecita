@@ -1,15 +1,15 @@
 #
 # NETWORKING
 #
-# - IG: Internet Gateway
+# After applying this module you'll have:
 #
 # 1. VPC
-# 2. Zero or more public subnets (per AZ)
-# 3. Zero or more private subnets (per AZ)
-# 4. Network ACL (allow all inbound & outbound traffic)
-# 5. Private Route Table (Local traffic)
-# 5. Public Route Table (Local + IG traffic)
-# 7. IG
+# 2. Zero+ subnets · Public· Per AZ
+# 3. Zero+ subnets · Private · Per AZ
+# 4. Network ACL · Allow all IN/OUT
+# 5. Route Table · Private · Main
+# 6. Route Table · Public
+# 7. Internet Gateway
 #
 
 terraform {
@@ -32,17 +32,12 @@ resource "aws_vpc" "nubecita" {
   }
 }
 
-resource "aws_route_table" "private" {
-  vpc_id = aws_vpc.nubecita.id
-
-  tags = {
-    Environment = var.environment
-    Location = var.aws_route_table_location
-    Name = var.aws_route_table_name
-  }
-}
-
-resource "aws_main_route_table_association" "nubecita_a_private" {
-  vpc_id         = aws_vpc.nubecita.id
-  route_table_id = aws_route_table.private.id
-}
+#
+# After creating a VPC, AWS will create,
+# automatically, the next resources:
+#
+# 1. Route Table · Main · Private
+# 2. Network ACL · Default · Allow all IN/OUT
+#
+# TODO: Add tags to the resources mentioned above.
+#
