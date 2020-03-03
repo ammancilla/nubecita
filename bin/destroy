@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+./bin/terraform destroy $1 $2
