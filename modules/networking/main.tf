@@ -12,6 +12,9 @@
 # 7. Internet Gateway
 #
 
+#
+# -- VPC ---
+#
 terraform {
   required_providers {
     aws = "~> 2.0"
@@ -41,3 +44,24 @@ resource "aws_vpc" "nubecita" {
 #
 # TODO: Add tags to the resources mentioned above.
 #
+
+#
+# -- Subnets ---
+#
+# AWS will associate them to the
+# main route table automatically
+#
+resource "aws_subnet" "private" {
+  count = var.aws_subnet__private__count
+
+  vpc_id = aws_vpc.nubecita.id
+  availability_zone = var.availability_zones[count.index]
+  cidr_block = cidrsubnet(aws_vpc.nubecita.cidr_block, 8, count.index + 1)
+
+  tags = {
+    Count = count.index
+    Environment = var.environment
+    Location = var.aws_subnet__private__location
+    Name = "${var.aws_subnet__private__name}.${count.index}"
+  }
+}
