@@ -90,3 +90,31 @@ resource "aws_subnet" "public" {
     Tier = "public"
   }
 }
+
+#
+# Route Table
+#
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.nubecita.id
+
+  tags = {
+    Environment = var.environment
+    Location = var.aws_route_table__location
+    Name = var.aws_route_table__name
+    Tier = "public"
+  }
+}
+
+data "aws_subnet_ids" "public" {
+  vpc_id = aws_vpc.nubecita.id
+
+  tags = {
+    Tier = "public"
+  }
+}
+
+resource "aws_route_table_association" "subnet_public__assoc__route_table_public" {
+  for_each = data.aws_subnet_ids.public.ids
+  subnet_id = each.value
+  route_table_id = aws_route_table.public.id
+}

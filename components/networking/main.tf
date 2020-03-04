@@ -14,11 +14,15 @@ module "networking" {
   aws_subnet__cidrsubnet_newbits = var.aws_subnet__cidrsubnet_newbits
   aws_subnet__cidrsubnet__netnum = var.aws_subnet__cidrsubnet__netnum
 
-  # -= private
+  # -- private
   aws_subnet__private__name = var.aws_subnet__private__name
   aws_subnet__private__location = var.aws_subnet__private__location
 
   # -- public
   aws_subnet__public__name = var.aws_subnet__public__name
   aws_subnet__public__location = var.aws_subnet__public__location
+
+  # Route Table
+  aws_route_table__name = var.aws_route_table__name
+  aws_route_table__location = var.aws_route_table__location
 }

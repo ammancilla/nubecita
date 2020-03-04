@@ -14,6 +14,9 @@ variable "aws_subnet__cidrsubnet__netnum" {
   default = 1
 }
 
+variable "aws_route_table__name" {}
+variable "aws_route_table__location" {}
+
 variable "aws_subnet__private__name" {}
 variable "aws_subnet__private__location" {}
 
