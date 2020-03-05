@@ -14,3 +14,9 @@ aws_subnet__public__name = "aws_subnet__public"
 
 aws_route_table__location = "components/networking/main.tf"
 aws_route_table__name = "aws_route_table__public"
+
+aws_internet_gateway__location = "components/networking/main.tf"
+aws_internet_gateway__name = "aws_internet_gateway"
+
+aws_network_acl__location = "components/networking/main.tf"
+aws_network_acl__name = "aws_network_acl__private"

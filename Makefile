@@ -10,7 +10,7 @@ terraform:
 		-w /home/nubecita/components/$(component) \
 		hashicorp/terraform $(cmd) \
 		-var="environment=$(environment)" \
-		-var-file="vars/$(environment).tfvars" \
+		-var-file="vars/$(environment).tfvars"
 
 plan: cmd=plan
 plan: terraform
@@ -47,7 +47,8 @@ terraform_networking:
 		-target="module.networking.aws_vpc.nubecita" \
 		-target="module.networking.aws_subnet.public" \
 		-target="module.networking.aws_subnet.private" \
-		-target="module.networking.aws_route_table.public"
+		-target="module.networking.aws_route_table.public" \
+		-target="module.networking.aws_internet_gateway.igw"
 
 
 plan_networking: cmd=plan
