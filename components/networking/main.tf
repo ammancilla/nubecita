@@ -22,7 +22,15 @@ module "networking" {
   aws_subnet__public__name = var.aws_subnet__public__name
   aws_subnet__public__location = var.aws_subnet__public__location
 
+  # Network ACL
+  aws_network_acl__location = var.aws_network_acl__location
+  aws_network_acl__name = var.aws_network_acl__name
+
   # Route Table
   aws_route_table__name = var.aws_route_table__name
   aws_route_table__location = var.aws_route_table__location
+
+  # Internet Gateway
+  aws_internet_gateway__name = var.aws_internet_gateway__name
+  aws_internet_gateway__location = var.aws_internet_gateway__location
 }

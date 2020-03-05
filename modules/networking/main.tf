@@ -92,10 +92,56 @@ resource "aws_subnet" "public" {
 }
 
 #
+# Network ACL
+#
+resource "aws_network_acl" "private" {
+  vpc_id = aws_vpc.nubecita.id
+  subnet_ids = data.aws_subnet_ids.private.ids
+
+  egress {
+    protocol   = -1
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = aws_vpc.nubecita.cidr_block
+    from_port  = 0
+    to_port    = 0
+  }
+
+  ingress {
+    protocol   = -1
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = aws_vpc.nubecita.cidr_block
+    from_port  = 0
+    to_port    = 0
+  }
+
+  tags = {
+    Environment = var.environment
+    Location = var.aws_network_acl__location
+    Name = var.aws_network_acl__name
+    Tier = "private"
+  }
+}
+
+data "aws_subnet_ids" "private" {
+  vpc_id = aws_vpc.nubecita.id
+
+  tags = {
+    Tier = "private"
+  }
+}
+
+#
 # Route Table
 #
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.nubecita.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
+  }
 
   tags = {
     Environment = var.environment
@@ -117,4 +163,17 @@ resource "aws_route_table_association" "subnet_public__assoc__route_table_public
   for_each = data.aws_subnet_ids.public.ids
   subnet_id = each.value
   route_table_id = aws_route_table.public.id
+}
+
+#
+# Internet Gateway
+#
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.nubecita.id
+
+  tags = {
+    Environment = var.environment
+    Location = var.aws_internet_gateway__location
+    Name = var.aws_internet_gateway__name
+  }
 }
