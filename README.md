@@ -1,7 +1,7 @@
 [WORK IN PROGRESS]
 
 # La propia nubecita ⛅️
-[![la propia nubecita](https://img.youtube.com/vi/d440dCl1Mbo/0.jpg)](https://www.youtube.com/watch?v=d440dCl1Mbo)
+[![la propia nubecita](https://img.youtube.com/vi/d440dCl1Mbo/1.jpg)](https://www.youtube.com/watch?v=d440dCl1Mbo)
 
 Minimal infrastructure to successfully deploy, run and maintain modern web applications.
 
