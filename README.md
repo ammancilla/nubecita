@@ -1,7 +1,7 @@
-# La propia nubecita ⛅️
-*https://www.youtube.com/watch?v=d440dCl1Mbo*
-
 [WORK IN PROGRESS]
+
+# La propia nubecita ⛅️
+[![la propia nubecita](https://img.youtube.com/vi/d440dCl1Mbo/0.jpg)](https://www.youtube.com/watch?v=d440dCl1Mbo)
 
 Minimal infrastructure to successfully deploy, run and maintain modern web applications.
 
@@ -22,9 +22,9 @@ The code, services and infrastructure design is opinionated. Based on my learnin
 
 List of componenet i attempt to have in my infrastructure.
 
-#### Deployment
+#### Continous Deployment Pipeline
 
-- Continous Deployment pipeline (Jenkins, Buildkite etc)
+- Self hosted using Jenkins, Buildkite or another.
 
 #### Networking
 
@@ -43,17 +43,14 @@ List of componenet i attempt to have in my infrastructure.
 
 #### Databases
 
-- SQL Database
+- SQL/NoSQL Database
 - In Memory Database
 
 #### Storage
 
-- ?
 
 #### Monitoring
 
-- ?
 
 #### Security
 
-- ?
