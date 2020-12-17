@@ -3,12 +3,15 @@
 # La propia nubecita ⛅️
 [![la propia nubecita](https://img.youtube.com/vi/d440dCl1Mbo/1.jpg)](https://www.youtube.com/watch?v=d440dCl1Mbo)
 
-Minimal infrastructure to successfully deploy, run and maintain modern web applications.
+Basic infrastructure to deploy, run and maintain modern web applications at scale.
 
-- Replicable
-- Auto Scalable
-- Distributed
-- Secure
+- Stable.
+- Secure.
+- Scalable.
+- Replicable.
+- Cost Effective.
+- Highly Available.
+- Highly Performant.
 
 ## Purpose
 
@@ -22,7 +25,7 @@ The code, services and infrastructure design is opinionated. Based on my learnin
 
 List of componenet i attempt to have in my infrastructure.
 
-#### Continous Deployment Pipeline
+#### Continous integration and deployment pipeline.
 
 - Self hosted using Jenkins, Buildkite or another.
 
@@ -43,8 +46,8 @@ List of componenet i attempt to have in my infrastructure.
 
 #### Databases
 
-- SQL/NoSQL Database
-- In Memory Database
+- SQL/NoSQL Databases
+- In Memory Databases
 
 #### Storage
 
