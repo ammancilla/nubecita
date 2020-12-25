@@ -1,9 +1,13 @@
-variable "environment" {
-  description = "The working environment"
-}
-
 variable "region" {
   description = "AWS region"
+}
+
+variable "profile" {
+  description = "The profile to authenticate in AWS (one from $HOME/.aws/config)"
+}
+
+variable "environment" {
+  description = "The working environment"
 }
 
 variable "availability_zones" {
@@ -45,3 +49,36 @@ variable "aws_internet_gateway__name" {}
 variable "aws_internet_gateway__location" {}
 variable "aws_network_acl__location" {}
 variable "aws_network_acl__name" {}
+
+# tf: Terraform
+# rs: Remote State
+# variable "tf_rs_backend" {}
+# variable "tf_rs_config" {
+#   description = <<-EOT
+#   The configuration object to be used to configure the remote state backend. It should have an appropiate structure according to the backend
+#   EOT
+# }
+
+
+#
+# Terraform Cloud
+#
+# backend: remote
+# config: {
+#   hostname:,
+#   organization*:,
+#   token:,
+#   worspaces*: {
+#     name:,
+#     prefix:,
+#   }
+# }
+#
+# AWS • S3
+#
+# backend: s3
+# config: {
+#   key*:,
+#   region*:,
+#   bucket*:,
+# }

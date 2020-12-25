@@ -1,3 +1,4 @@
+
 #
 # NETWORKING
 #
@@ -10,21 +11,27 @@
 # 5. Route Table · Private · Main
 # 6. Route Table · Public
 # 7. Internet Gateway
-#
 
 #
-# -- VPC ---
+# -- Base --
 #
 terraform {
   required_providers {
-    aws = "~> 2.0"
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.0"
+    }
   }
 }
 
 provider "aws" {
   region = var.region
+  profile = var.profile
 }
 
+#
+# -- VPC ---
+#
 resource "aws_vpc" "nubecita" {
   cidr_block = var.aws_vpc__cidr_block
 
