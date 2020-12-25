@@ -1,9 +1,11 @@
 module "networking" {
   source = "../../modules/networking"
 
+  # Base
   region = var.region
-  availability_zones = var.availability_zones
+  profile = var.profile
   environment = var.environment
+  availability_zones = var.availability_zones
 
   # VPC
   aws_vpc__cidr_block = var.aws_vpc__cidr_block

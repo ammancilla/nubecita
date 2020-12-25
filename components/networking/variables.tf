@@ -1,6 +1,9 @@
-variable "environment" {}
 variable "region" {}
-variable "availability_zones" {}
+variable "profile" {}
+variable "environment" {}
+variable "availability_zones" {
+  default = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
+}
 variable "aws_subnet__cidrsubnet_newbits" {
   default = 8
 }
