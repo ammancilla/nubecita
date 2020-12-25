@@ -2,9 +2,11 @@ module "networking" {
   source = "../../modules/networking"
 
   # Base
+  environment = var.environment
+
+  # AWS Configuration
   region = var.region
   profile = var.profile
-  environment = var.environment
   availability_zones = var.availability_zones
 
   # VPC

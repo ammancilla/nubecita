@@ -1,12 +1,18 @@
 default: shell
 
 shell:
-	docker run -ti --rm -v $(PWD):/home/nubecita:cached -v ~/.aws:/root/.aws:cached -w /home/nubecita --entrypoint=/bin/sh hashicorp/terraform:light
+	docker run -ti --rm \
+		-v $(PWD):/home/nubecita:cached \
+		-v ~/.aws:/root/.aws:cached \
+		-v ~/.terraform.d:/root/.terraform.d:cached \
+		-w /home/nubecita --entrypoint=/bin/sh \
+		hashicorp/terraform:light
 
 terraform:
 	docker run -i --rm \
 		-v $(PWD):/home/nubecita \
 		-v ~/.aws:/root/.aws:cached \
+		-v ~/.terraform.d:/root/.terraform.d:cached \
 		-w /home/nubecita/components/$(component) \
 		hashicorp/terraform:light $(cmd) \
 		-var-file="vars/$(environment).tfvars"
@@ -39,6 +45,7 @@ terraform-networking:
 	docker run -i --rm \
 		-v $(PWD):/home/nubecita \
 		-v ~/.aws:/root/.aws:cached \
+		-v ~/.terraform.d:/root/.terraform.d:cached \
 		-w /home/nubecita/components/networking \
 		hashicorp/terraform:light $(cmd) \
 		-var-file="vars/$(environment).tfvars" \
