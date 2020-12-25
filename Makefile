@@ -1,15 +1,14 @@
 default: shell
 
 shell:
-	docker run -ti --rm -v $(PWD):/home/nubecita:cached -v ~/.aws:/root/.aws:cached -w /home/nubecita --entrypoint=/bin/sh hashicorp/terraform
+	docker run -ti --rm -v $(PWD):/home/nubecita:cached -v ~/.aws:/root/.aws:cached -w /home/nubecita --entrypoint=/bin/sh hashicorp/terraform:light
 
 terraform:
 	docker run -i --rm \
-		-v $(PWD):/home/nubecita:cached \
+		-v $(PWD):/home/nubecita \
 		-v ~/.aws:/root/.aws:cached \
 		-w /home/nubecita/components/$(component) \
-		hashicorp/terraform $(cmd) \
-		-var="environment=$(environment)" \
+		hashicorp/terraform:light $(cmd) \
 		-var-file="vars/$(environment).tfvars"
 
 plan: cmd=plan
@@ -36,14 +35,13 @@ destroy: terraform
 # To work around this, use the -target argument to first apply only the
 # resources that the for_each depends on.
 #
-terraform_networking:
+terraform-networking:
 	docker run -i --rm \
-		-v $(PWD):/home/nubecita:cached \
+		-v $(PWD):/home/nubecita \
 		-v ~/.aws:/root/.aws:cached \
 		-w /home/nubecita/components/networking \
-		hashicorp/terraform $(cmd) \
-		-var="environment=$(environment)" \
-		 -var-file="vars/$(environment).tfvars" \
+		hashicorp/terraform:light $(cmd) \
+		-var-file="vars/$(environment).tfvars" \
 		-target="module.networking.aws_vpc.nubecita" \
 		-target="module.networking.aws_subnet.public" \
 		-target="module.networking.aws_subnet.private" \
@@ -51,8 +49,8 @@ terraform_networking:
 		-target="module.networking.aws_internet_gateway.igw"
 
 
-plan_networking: cmd=plan
-plan_networking: terraform_networking
+plan-networking: cmd=plan
+plan-networking: terraform-networking
 
-apply_networking: cmd=apply
-apply_networking: terraform_networking
+apply-networking: cmd=apply
+apply-networking: terraform-networking
