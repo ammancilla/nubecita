@@ -12,7 +12,7 @@ terraform {
     organization = "drilococo"
 
     workspaces {
-      name = "nubecita"
+      prefix = "networking-"
     }
   }
 }

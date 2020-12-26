@@ -4,10 +4,8 @@ module "networking" {
   # Base
   environment = var.environment
 
-  # AWS Configuration
-  region = var.region
-  profile = var.profile
-  availability_zones = var.availability_zones
+  # -- AWS
+  aws_availability_zones__names = var.aws_availability_zones__names
 
   # VPC
   aws_vpc__cidr_block = var.aws_vpc__cidr_block

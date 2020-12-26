@@ -1,6 +1,7 @@
-region = "eu-central-1"
-profile = "apolonio-staging"
 environment = "staging"
+
+aws_region__name = "eu-central-1"
+aws_profile__name = "apolonio-staging"
 
 aws_vpc__name = "nubecita"
 aws_vpc__location = "components/networking/main.tf"

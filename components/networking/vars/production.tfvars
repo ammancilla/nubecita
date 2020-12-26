@@ -1,6 +1,7 @@
-region = "eu-central-1"
-profile = "apolonio-production"
 environment = "production"
+
+aws_region__name = "eu-central-1"
+aws_profile__name = "apolonio-production"
 
 aws_vpc__name = "nubecita"
 aws_vpc__cidr_block = "10.10.0.0/16"
