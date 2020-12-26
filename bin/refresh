@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+./bin/terraform refresh $1 $2

@@ -14,6 +14,9 @@ plan: terraform
 apply: cmd=apply
 apply: terraform
 
+refresh: cmd=refresh
+refresh: terraform
+
 destroy: cmd=destroy
 destroy: terraform
 
