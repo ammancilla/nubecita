@@ -116,7 +116,25 @@ I'll use [Terraform](https://www.terraform.io) design/provision/manage/deliver t
 
 - `terraform init`
 
+### Modules & Components
+
+      | components/
+      |-- componentName/
+      |   |-- vars/
+      |   |   |-- staging.tfvars
+      |   |   |-- production.tfvars
+      |   |-- main.tf
+      |   |-- backend.tf
+      |   |-- provider.tf
+      |   |-- variables.tf
+      | modules/
+      |-- moduleName/
+      |   |-- main.tf
+      |   |-- variables.tf
+      |   |-- requirements.tf
+
 **Reference**
+- https://www.terraform.io/docs/configuration/blocks/modules/syntax.html
 - https://learn.hashicorp.com/collections/terraform/aws-get-started
 - https://registry.terraform.io/providers/hashicorp/aws/latest/docs
 
