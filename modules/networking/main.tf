@@ -13,23 +13,6 @@
 # 7. Internet Gateway
 
 #
-# -- Base --
-#
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.0"
-    }
-  }
-}
-
-provider "aws" {
-  region = var.region
-  profile = var.profile
-}
-
-#
 # -- VPC ---
 #
 resource "aws_vpc" "nubecita" {
@@ -59,10 +42,10 @@ resource "aws_vpc" "nubecita" {
 # main route table automatically
 #
 resource "aws_subnet" "private" {
-  count = length(var.availability_zones)
+  count = length(var.aws_availability_zones__names)
 
   vpc_id = aws_vpc.nubecita.id
-  availability_zone = var.availability_zones[count.index]
+  availability_zone = var.aws_availability_zones__names[count.index]
   cidr_block = cidrsubnet(
     aws_vpc.nubecita.cidr_block,
     var.aws_subnet__cidrsubnet_newbits,
@@ -79,14 +62,14 @@ resource "aws_subnet" "private" {
 }
 
 resource "aws_subnet" "public" {
-  count = length(var.availability_zones)
+  count = length(var.aws_availability_zones__names)
 
   vpc_id = aws_vpc.nubecita.id
-  availability_zone = var.availability_zones[count.index]
+  availability_zone = var.aws_availability_zones__names[count.index]
   cidr_block = cidrsubnet(
     aws_vpc.nubecita.cidr_block,
     var.aws_subnet__cidrsubnet_newbits,
-    length(var.availability_zones) + count.index + 1
+    length(var.aws_availability_zones__names) + count.index + 1
   )
 
   tags = {
