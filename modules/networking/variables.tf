@@ -1,17 +1,20 @@
 variable "environment" {
   description = "The working environment"
+  type = string
+}
+
+variable "default_tags" {
+  description = "A map of tags to add to all resources"
+  type        = map(string)
+  default     = {}
 }
 
 variable "aws_availability_zones__names" {
-  type = list
+  type = list(string)
   description = "List of AZ of the AWS region"
 }
 
-variable "aws_vpc__cidr_block" {
-  description = "VPC's cidr block"
-}
-
-variable "aws_subnet__cidrsubnet_newbits" {
+variable "aws_subnet__cidrsubnet__newbits" {
   description = <<-EOT
   Used to calculate the subnet CIDR using terraform's cidrsubnet(prefix, newbits, netnum) function.
 
@@ -29,15 +32,10 @@ variable "aws_subnet__cidrsubnet__netnum" {
   EOT
 }
 
-variable "aws_vpc__location" {}
 variable "aws_vpc__name" {}
-variable "aws_subnet__private__name" {}
-variable "aws_subnet__private__location" {}
-variable "aws_subnet__public__name" {}
-variable "aws_subnet__public__location" {}
+variable "aws_vpc__cidr_block" {}
 variable "aws_route_table__name" {}
-variable "aws_route_table__location" {}
-variable "aws_internet_gateway__name" {}
-variable "aws_internet_gateway__location" {}
-variable "aws_network_acl__location" {}
 variable "aws_network_acl__name" {}
+variable "aws_subnet__public__name" {}
+variable "aws_subnet__private__name" {}
+variable "aws_internet_gateway__name" {}

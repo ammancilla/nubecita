@@ -18,16 +18,16 @@
 resource "aws_vpc" "nubecita" {
   cidr_block = var.aws_vpc__cidr_block
 
-  tags = {
-    Environment = var.environment
-    Location = var.aws_vpc__location
-    Name = var.aws_vpc__name
-  }
+  tags = merge(
+    var.default_tags,
+    {
+      Name = format("%s", var.aws_vpc__name)
+    }
+  )
 }
 
 #
-# After creating a VPC, AWS will create,
-# automatically, the next resources:
+# After creating a VPC, AWS will create, automatically, the next resources:
 #
 # 1. Route Table · Main · Private
 # 2. Network ACL · Default · Allow all IN/OUT
@@ -38,8 +38,7 @@ resource "aws_vpc" "nubecita" {
 #
 # -- Subnets ---
 #
-# AWS will associate them to the
-# main route table automatically
+# AWS will associate them to the main route table automatically
 #
 resource "aws_subnet" "private" {
   count = length(var.aws_availability_zones__names)
@@ -48,17 +47,18 @@ resource "aws_subnet" "private" {
   availability_zone = var.aws_availability_zones__names[count.index]
   cidr_block = cidrsubnet(
     aws_vpc.nubecita.cidr_block,
-    var.aws_subnet__cidrsubnet_newbits,
+    var.aws_subnet__cidrsubnet__newbits,
     var.aws_subnet__cidrsubnet__netnum + count.index
   )
 
-  tags = {
-    Count = count.index
-    Environment = var.environment
-    Location = var.aws_subnet__private__location
-    Name = "${var.aws_subnet__private__name}.${count.index}"
-    Tier = "private"
-  }
+  tags = merge(
+    var.default_tags,
+    {
+      Tier = "private"
+      Name = format("%s", "${var.aws_subnet__private__name}.${count.index}")
+      Count = count.index
+    }
+  )
 }
 
 resource "aws_subnet" "public" {
@@ -68,17 +68,18 @@ resource "aws_subnet" "public" {
   availability_zone = var.aws_availability_zones__names[count.index]
   cidr_block = cidrsubnet(
     aws_vpc.nubecita.cidr_block,
-    var.aws_subnet__cidrsubnet_newbits,
+    var.aws_subnet__cidrsubnet__newbits,
     length(var.aws_availability_zones__names) + count.index + 1
   )
 
-  tags = {
-    Count = count.index
-    Environment = var.environment
-    Location = var.aws_subnet__public__location
-    Name = "${var.aws_subnet__public__name}.${count.index}"
-    Tier = "public"
-  }
+  tags = merge(
+    var.default_tags,
+    {
+      Tier = "public"
+      Name = format("%s", "${var.aws_subnet__public__name}.${count.index}")
+      Count = count.index
+    }
+  )
 }
 
 #
@@ -86,7 +87,7 @@ resource "aws_subnet" "public" {
 #
 resource "aws_network_acl" "private" {
   vpc_id = aws_vpc.nubecita.id
-  subnet_ids = data.aws_subnet_ids.private.ids
+  subnet_ids = aws_subnet.private.*.id
 
   egress {
     protocol   = -1
@@ -106,20 +107,13 @@ resource "aws_network_acl" "private" {
     to_port    = 0
   }
 
-  tags = {
-    Environment = var.environment
-    Location = var.aws_network_acl__location
-    Name = var.aws_network_acl__name
-    Tier = "private"
-  }
-}
-
-data "aws_subnet_ids" "private" {
-  vpc_id = aws_vpc.nubecita.id
-
-  tags = {
-    Tier = "private"
-  }
+  tags = merge(
+    var.default_tags,
+    {
+      Tier = "private",
+      Name = format("%s", var.aws_network_acl__name)
+    }
+  )
 }
 
 #
@@ -133,25 +127,19 @@ resource "aws_route_table" "public" {
     gateway_id = aws_internet_gateway.igw.id
   }
 
-  tags = {
-    Environment = var.environment
-    Location = var.aws_route_table__location
-    Name = var.aws_route_table__name
-    Tier = "public"
-  }
-}
-
-data "aws_subnet_ids" "public" {
-  vpc_id = aws_vpc.nubecita.id
-
-  tags = {
-    Tier = "public"
-  }
+  tags = merge(
+    var.default_tags,
+    {
+      Tier = "public",
+      Name = format("%s", var.aws_route_table__name)
+    }
+  )
 }
 
 resource "aws_route_table_association" "subnet_public__assoc__route_table_public" {
-  for_each = data.aws_subnet_ids.public.ids
-  subnet_id = each.value
+  count = length(aws_subnet.public.*.id)
+
+  subnet_id = element(aws_subnet.public.*.id, count.index)
   route_table_id = aws_route_table.public.id
 }
 
@@ -161,9 +149,10 @@ resource "aws_route_table_association" "subnet_public__assoc__route_table_public
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.nubecita.id
 
-  tags = {
-    Environment = var.environment
-    Location = var.aws_internet_gateway__location
-    Name = var.aws_internet_gateway__name
-  }
+  tags = merge(
+    var.default_tags,
+    {
+      Name = format("%s", var.aws_internet_gateway__name)
+    }
+  )
 }
