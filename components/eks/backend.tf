@@ -8,3 +8,16 @@ terraform {
     }
   }
 }
+
+data "terraform_remote_state" "networking" {
+  backend = "remote"
+
+  config = {
+    hostname = "app.terraform.io"
+    organization = "drilococo"
+
+    workspaces = {
+      name = "networking-${var.environment}"
+    }
+  }
+}

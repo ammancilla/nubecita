@@ -1,27 +1,8 @@
 #
-# REFERENCES:
-# - EKS
-# • https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster
-# • https://aws.amazon.com/getting-started/hands-on/deploy-kubernetes-app-amazon-eks/
-#
-# - Role
-# • https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html
-# • https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role
-# • https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_role
-#
-
-#
-# Prerequisites:
-# • AWS CLI
-# • Kubectl
-#
-# • VPC
-# • Cluster IAM Role
-#
-# NOTE: When an Amazon EKS cluster is created, the IAM entity (user or role) that creates the cluster is added to the Kubernetes RBAC authorization table as the administrator (with system:masters permissions). Initially, only that IAM user can make calls to the Kubernetes API server using kubectl . For more information, see Managing users or IAM roles for your cluster.
+# -- Cluster Role --
 #
 resource "aws_iam_role" "eks_cluster"  {
-  name = var.aws_role__name
+  name = var.aws_role__eks_cluster__name
 
   assume_role_policy = <<-EOF
 {
@@ -38,14 +19,43 @@ resource "aws_iam_role" "eks_cluster"  {
 }
 EOF
 
-  tags = {
-    Environment = var.environment
-    Location = var.terraform__location
-    Name = var.aws_role__name
-  }
+  tags = merge(
+    var.default_tags,
+    {
+      Name = format("%s", var.aws_role__eks_cluster__name)
+    }
+  )
 }
 
-resource "aws_iam_role_policy_attachment" "aws_attach__policy__eks_cluster___role__eks_cluster" {
+resource "aws_iam_role_policy_attachment" "attachment__AmazonEKSClusterPolicy" {
   role = aws_iam_role.eks_cluster.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+}
+
+#
+# -- Cluster --
+#
+resource "aws_eks_cluster" "tarima" {
+  name = var.aws_eks__cluster__name
+  role_arn = aws_iam_role.eks_cluster.arn
+  version = var.aws_eks__cluster__kubernetes_version
+
+  vpc_config {
+    subnet_ids = var.aws_eks__cluster__subnet_ids
+
+    endpoint_public_access  = true
+    endpoint_private_access = true
+    public_access_cidrs = var.aws_eks__cluster__public_access_cidrs
+  }
+
+  depends_on = [
+    aws_iam_role_policy_attachment.attachment__AmazonEKSClusterPolicy
+  ]
+
+  tags = merge(
+    var.default_tags,
+    {
+      Name = format("%s", var.aws_eks__cluster__name)
+    }
+  )
 }

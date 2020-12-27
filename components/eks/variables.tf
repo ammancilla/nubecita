@@ -1,10 +1,15 @@
 variable "environment" {}
-variable "aws_region__name" {}
-variable "aws_profile__name" {}
-variable "aws_availability_zones__names" {
-  default = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
+variable "default_tags" {}
+
+variable "aws_provider__region" {}
+variable "aws_provider__profile" {}
+variable "aws_availability_zones__names" {}
+
+variable "aws_eks__cluster__name" {}
+variable "aws_eks__cluster__subnet_ids" {}
+variable "aws_eks__cluster__kubernetes_version" {}
+variable "aws_eks__cluster__public_access_cidrs" {
+  default = ["0.0.0.0/0"]
 }
-variable "aws_role__name" {}
-variable "terraform__location" {
-  default = "components/eks/main.tf"
-}
+
+variable "aws_role__eks_cluster__name" {}
