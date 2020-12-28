@@ -11,15 +11,4 @@ cd "./components/${component}/"
 terraform workspace select $environment &
 wait $!
 
-case $component in
-  "networking")
-     ;;
-  "eks")
-     ;;
-  *)
-    echo "Unknown aomponent: ${component}"
-    exit 1
-    ;;
-esac
-
 terraform ${cmd} -var="environment=${environment}" -var-file="vars/${environment}.tfvars"

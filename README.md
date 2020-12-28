@@ -124,14 +124,16 @@ I'll use [Terraform](https://www.terraform.io) design/provision/manage/deliver t
       |   |   |-- staging.tfvars
       |   |   |-- production.tfvars
       |   |-- main.tf
+      |   |-- outputs.tf
       |   |-- backend.tf
-      |   |-- provider.tf
+      |   |-- providers.tf
       |   |-- variables.tf
       | modules/
       |-- moduleName/
       |   |-- main.tf
+      |   |-- outputs.tf
       |   |-- variables.tf
-      |   |-- requirements.tf
+      |   |-- versions.tf
 
 **Reference**
 - https://www.terraform.io/docs/configuration/blocks/modules/syntax.html
