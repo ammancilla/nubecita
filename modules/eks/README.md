@@ -13,6 +13,7 @@
     • https://aws.amazon.com/getting-started/hands-on/deploy-kubernetes-app-amazon-eks/
     • https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html
     • https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html
+    • https://docs.aws.amazon.com/eks/latest/userguide/cluster-autoscaler.html
   
   - EKS Node Group
     • https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html
@@ -46,6 +47,9 @@ Have at hand:
 - Create IAM EKSCluster Role
   https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html
   https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster#example-iam-role-for-eks-cluster
+
+- Configure Cluster Autoscaler
+  https://docs.aws.amazon.com/eks/latest/userguide/cluster-autoscaler.html
 
 - Enable control plane logging
   https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html

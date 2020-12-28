@@ -1,12 +1,12 @@
-environment = "staging"
+environment = "production"
 default_tags = {
     Terraform = "true"
-    Environment = "staging"
-    TerraformLocation = "modules/eks/main.tf"
+    Environment = "production"
+    TerraformLocation = "modules/eks/cluster/main.tf"
 }
 
 aws_provider__region = "eu-central-1"
-aws_provider__profile = "apolonio-staging"
+aws_provider__profile = "apolonio-production"
 aws_availability_zones__names = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
 
 aws_eks__cluster__name = "la_tarima"

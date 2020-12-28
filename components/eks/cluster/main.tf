@@ -1,5 +1,5 @@
-module "eks" {
-  source = "../../modules/eks"
+module "eks-cluster" {
+  source = "../../../modules/eks/cluster"
 
   environment = var.environment
   default_tags = var.default_tags

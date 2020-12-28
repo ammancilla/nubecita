@@ -4,7 +4,7 @@ terraform {
     organization = "drilococo"
 
     workspaces {
-      prefix = "eks-"
+      prefix = "eks-cluster-"
     }
   }
 }

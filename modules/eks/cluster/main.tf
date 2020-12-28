@@ -4,20 +4,20 @@
 resource "aws_iam_role" "eks_cluster"  {
   name = var.aws_role__eks_cluster__name
 
-  assume_role_policy = <<-EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
+  assume_role_policy = jsonencode(
     {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "eks.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
+      Version = "2012-10-17",
+      Statement = [
+        {
+          Effect = "Allow",
+          Principal = {
+            Service = "eks.amazonaws.com"
+          },
+          Action = "sts:AssumeRole"
+        }
+      ]
     }
-  ]
-}
-EOF
+  )
 
   tags = merge(
     var.default_tags,
