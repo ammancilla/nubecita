@@ -101,8 +101,9 @@ resource "aws_eks_node_group" "minions" {
     var.default_tags,
     map(
       "Name", format("%s", var.node_group__name),
-      "k8s.io/cluster-autoscaler/${var.cluster__name}", "owned",
-      "k8s.io/cluster-autoscaler/enabled", "true"
+      "k8s.io/cluster-autoscaler/enabled", "true",
+      "kubernetes.io/cluster/${var.cluster__name}", "owned",
+      "k8s.io/cluster-autoscaler/${var.cluster__name}", "owned"
     )
   )
 }
