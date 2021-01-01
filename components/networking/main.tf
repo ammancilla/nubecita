@@ -1,29 +1,21 @@
 module "networking" {
   source = "../../modules/networking"
 
-  # Base
   environment = var.environment
   default_tags = var.default_tags
 
-  # AZ
-  aws_availability_zones__names = var.aws_availability_zones__names
+  availability_zones__names = var.availability_zones__names
 
-  # VPC
-  aws_vpc__name = var.aws_vpc__name
-  aws_vpc__cidr_block = var.aws_vpc__cidr_block
+  vpc__name = var.vpc__name
+  vpc__cidr_block = var.vpc__cidr_block
+  vpc__enable_dns_hostnames = true
 
-  # Subnets
-  aws_subnet__public__name = var.aws_subnet__public__name
-  aws_subnet__private__name = var.aws_subnet__private__name
-  aws_subnet__cidrsubnet__netnum = var.aws_subnet__cidrsubnet__netnum
-  aws_subnet__cidrsubnet__newbits = var.aws_subnet__cidrsubnet__newbits
+  subnet__public__name = var.subnet__public__name
+  subnet__private__name = var.subnet__private__name
+  subnet__cidrsubnet__netnum = var.subnet__cidrsubnet__netnum
+  subnet__cidrsubnet__newbits = var.subnet__cidrsubnet__newbits
 
-  # Network ACL
-  aws_network_acl__name = var.aws_network_acl__name
-
-  # Route Table
-  aws_route_table__name = var.aws_route_table__name
-
-  # Internet Gateway
-  aws_internet_gateway__name = var.aws_internet_gateway__name
+  ig__name = var.ig__name
+  network_acl__name = var.network_acl__name
+  route_table__name = var.route_table__name
 }

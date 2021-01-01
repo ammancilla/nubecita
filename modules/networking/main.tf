@@ -16,12 +16,13 @@
 # -- VPC ---
 #
 resource "aws_vpc" "nubecita" {
-  cidr_block = var.aws_vpc__cidr_block
+  cidr_block = var.vpc__cidr_block
+  enable_dns_hostnames = var.vpc__enable_dns_hostnames
 
   tags = merge(
     var.default_tags,
     {
-      Name = format("%s", var.aws_vpc__name)
+      Name = format("%s", var.vpc__name)
     }
   )
 }
@@ -41,42 +42,42 @@ resource "aws_vpc" "nubecita" {
 # AWS will associate them to the main route table automatically
 #
 resource "aws_subnet" "private" {
-  count = length(var.aws_availability_zones__names)
+  count = length(var.availability_zones__names)
 
   vpc_id = aws_vpc.nubecita.id
-  availability_zone = var.aws_availability_zones__names[count.index]
+  availability_zone = var.availability_zones__names[count.index]
   cidr_block = cidrsubnet(
     aws_vpc.nubecita.cidr_block,
-    var.aws_subnet__cidrsubnet__newbits,
-    var.aws_subnet__cidrsubnet__netnum + count.index
+    var.subnet__cidrsubnet__newbits,
+    var.subnet__cidrsubnet__netnum + count.index
   )
 
   tags = merge(
     var.default_tags,
     {
       Tier = "private"
-      Name = format("%s", "${var.aws_subnet__private__name}.${count.index}")
+      Name = format("%s", "${var.subnet__private__name}.${count.index}")
       Count = count.index
     }
   )
 }
 
 resource "aws_subnet" "public" {
-  count = length(var.aws_availability_zones__names)
+  count = length(var.availability_zones__names)
 
   vpc_id = aws_vpc.nubecita.id
-  availability_zone = var.aws_availability_zones__names[count.index]
+  availability_zone = var.availability_zones__names[count.index]
   cidr_block = cidrsubnet(
     aws_vpc.nubecita.cidr_block,
-    var.aws_subnet__cidrsubnet__newbits,
-    length(var.aws_availability_zones__names) + count.index + 1
+    var.subnet__cidrsubnet__newbits,
+    length(var.availability_zones__names) + count.index + 1
   )
 
   tags = merge(
     var.default_tags,
     {
       Tier = "public"
-      Name = format("%s", "${var.aws_subnet__public__name}.${count.index}")
+      Name = format("%s", "${var.subnet__public__name}.${count.index}")
       Count = count.index
     }
   )
@@ -111,7 +112,7 @@ resource "aws_network_acl" "private" {
     var.default_tags,
     {
       Tier = "private",
-      Name = format("%s", var.aws_network_acl__name)
+      Name = format("%s", var.network_acl__name)
     }
   )
 }
@@ -131,7 +132,7 @@ resource "aws_route_table" "public" {
     var.default_tags,
     {
       Tier = "public",
-      Name = format("%s", var.aws_route_table__name)
+      Name = format("%s", var.route_table__name)
     }
   )
 }
@@ -152,7 +153,7 @@ resource "aws_internet_gateway" "igw" {
   tags = merge(
     var.default_tags,
     {
-      Name = format("%s", var.aws_internet_gateway__name)
+      Name = format("%s", var.ig__name)
     }
   )
 }

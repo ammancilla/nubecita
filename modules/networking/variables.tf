@@ -9,12 +9,12 @@ variable "default_tags" {
   default     = {}
 }
 
-variable "aws_availability_zones__names" {
+variable "availability_zones__names" {
   type = list(string)
   description = "List of AZ of the AWS region"
 }
 
-variable "aws_subnet__cidrsubnet__newbits" {
+variable "subnet__cidrsubnet__newbits" {
   description = <<-EOT
   Used to calculate the subnet CIDR using terraform's cidrsubnet(prefix, newbits, netnum) function.
 
@@ -23,7 +23,7 @@ variable "aws_subnet__cidrsubnet__newbits" {
   EOT
 }
 
-variable "aws_subnet__cidrsubnet__netnum" {
+variable "subnet__cidrsubnet__netnum" {
   description = <<-EOT
   Used to calculate the subnet CIDR using terraform's cidrsubnet(prefix, newbits, netnum).
 
@@ -32,10 +32,11 @@ variable "aws_subnet__cidrsubnet__netnum" {
   EOT
 }
 
-variable "aws_vpc__name" {}
-variable "aws_vpc__cidr_block" {}
-variable "aws_route_table__name" {}
-variable "aws_network_acl__name" {}
-variable "aws_subnet__public__name" {}
-variable "aws_subnet__private__name" {}
-variable "aws_internet_gateway__name" {}
+variable "ig__name" {}
+variable "vpc__name" {}
+variable "vpc__cidr_block" {}
+variable "vpc__enable_dns_hostnames" {}
+variable "route_table__name" {}
+variable "network_acl__name" {}
+variable "subnet__public__name" {}
+variable "subnet__private__name" {}
