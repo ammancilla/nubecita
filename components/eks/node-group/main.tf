@@ -11,7 +11,7 @@ module "eks-node-group" {
   node_group__name = var.node_group__name
   node_group__min_size = var.node_group__min_size
   node_group__max_size = var.node_group__max_size
-  node_group__subnet_ids = data.terraform_remote_state.networking.outputs.private_subnet_ids
+  node_group__subnet_ids = data.terraform_remote_state.networking.outputs.public_subnet_ids
   node_group__desired_size = var.node_group__desired_size
   node_group__instance_type = var.node_group__instance_type
 }
