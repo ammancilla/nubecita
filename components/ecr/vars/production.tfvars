@@ -10,7 +10,7 @@ aws_provider__profile = "apolonio-production"
 
 ecr__repos = [
   {
-    name = "oferfacil",
+    name = "myapp",
     scan_on_push = true,
     image_tag_mutability = "INMUTABLE"
   },
