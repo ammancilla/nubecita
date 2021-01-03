@@ -11,9 +11,11 @@ module "networking" {
   vpc__enable_dns_hostnames = true
 
   subnet__public__name = var.subnet__public__name
+  subnet__public__tags = var.subnet__public__tags
   subnet__private__name = var.subnet__private__name
   subnet__cidrsubnet__netnum = var.subnet__cidrsubnet__netnum
   subnet__cidrsubnet__newbits = var.subnet__cidrsubnet__newbits
+  subnet__public__map_public_ip_on_launch = var.subnet__public__map_public_ip_on_launch
 
   ig__name = var.ig__name
   network_acl__name = var.network_acl__name

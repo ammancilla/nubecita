@@ -15,9 +15,13 @@ vpc__cidr_block = "10.10.0.0/16"
 vpc__enable_dns_hostnames = true
 
 subnet__public__name = "subnet__public"
+subnet__public__tags = {
+    "kubernetes.io/cluster/la_tarima" = "shared"
+}
 subnet__private__name = "subnet__private"
 subnet__cidrsubnet__netnum = 1
 subnet__cidrsubnet__newbits = 8
+subnet__public__map_public_ip_on_launch = true
 
 ig__name = "internet_gateway"
 route_table__name = "route_table__public"

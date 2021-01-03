@@ -11,6 +11,7 @@ variable "vpc__cidr_block" {}
 variable "vpc__enable_dns_hostnames" {}
 
 variable "subnet__public__name" {}
+variable "subnet__public__tags" {}
 variable "subnet__private__name" {}
 variable "subnet__cidrsubnet__netnum" {}
 variable "subnet__cidrsubnet__newbits" {}
@@ -18,3 +19,4 @@ variable "subnet__cidrsubnet__newbits" {}
 variable "ig__name" {}
 variable "route_table__name" {}
 variable "network_acl__name" {}
+variable "subnet__public__map_public_ip_on_launch" {}

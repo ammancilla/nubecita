@@ -66,15 +66,17 @@ resource "aws_subnet" "public" {
   count = length(var.availability_zones__names)
 
   vpc_id = aws_vpc.nubecita.id
-  availability_zone = var.availability_zones__names[count.index]
   cidr_block = cidrsubnet(
     aws_vpc.nubecita.cidr_block,
     var.subnet__cidrsubnet__newbits,
     length(var.availability_zones__names) + count.index + 1
   )
+  map_public_ip_on_launch = var.subnet__public__map_public_ip_on_launch
+  availability_zone = var.availability_zones__names[count.index]
 
   tags = merge(
     var.default_tags,
+    var.subnet__public__tags,
     {
       Tier = "public"
       Name = format("%s", "${var.subnet__public__name}.${count.index}")
